@@ -1,0 +1,33 @@
+import tkinter as tk
+import webbrowser
+
+def open_google_search(event=None):
+    global search_entry  # Make sure to use the global variable inside the function
+    search_query = search_entry.get()
+    if search_query:
+        search_query = search_query.replace(' ', '+')
+        url = f'https://www.google.com/search?q={search_query}'
+        webbrowser.open(url)
+
+def create_popup():
+    popup = tk.Toplevel()
+    popup.title("Google Search")
+    popup.geometry("400x100")
+
+    global search_entry  # Make the search_entry a global variable
+    search_entry = tk.Entry(popup, font=("Arial", 14))
+    search_entry.pack(pady=10)
+    search_entry.bind("<Return>", open_google_search)
+
+    search_button = tk.Button(popup, text="Search", font=("Arial", 12), command=open_google_search)
+    search_button.pack(pady=5)
+
+    popup.mainloop()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.withdraw()  # Hide the main window, showing only the popup
+
+    create_popup()
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
